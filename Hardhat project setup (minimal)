@@ -1,0 +1,30 @@
+npm init -y
+npm install --save-dev hardhat @nomiclabs/hardhat-ethers ethers dotenv
+npm install @openzeppelin/contracts
+npx hardhat  # choose "create an empty hardhat.config.js" or basic JS project
+PRIVATE_KEY=0xYOUR_PRIVATE_KEY
+BASE_SEPOLIA_RPC=https://sepolia.base.org
+BASE_MAINNET_RPC=https://mainnet.base.org
+require("dotenv").config();
+require("@nomiclabs/hardhat-ethers");
+
+const { PRIVATE_KEY, BASE_SEPOLIA_RPC, BASE_MAINNET_RPC } = process.env;
+
+module.exports = {
+  solidity: "0.8.20",
+  networks: {
+    baseSepolia: {
+      url: BASE_SEPOLIA_RPC || "https://sepolia.base.org",
+      chainId: 84532,
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+    },
+    baseMainnet: {
+      url: BASE_MAINNET_RPC || "https://mainnet.base.org",
+      chainId: 8453,
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+    },
+    hardhat: {
+      chainId: 1337
+    }
+  }
+};
